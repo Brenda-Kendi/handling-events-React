@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {  useState } from 'react'
+import './App.css'
+import Overview from './components/Overview'; 
 
-function App() {
+const App = ()=>{
+  const [task , setTask] =  useState('')
+  const [tasks , setTasks] = useState([])
+  const handleSubmit = (e) => {e.preventDefault()
+  if (task==='')return
+  setTasks([...tasks, task])
+  setTask('')
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1>TASK APP</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <input type="text" placeholder="Enter..." className="form-control" onChange = {e =>{setTask(e.target.value)}} value={task} />
+          <button className="btn btn-primary btn-block ">Enter</button>
+        </div>
+      </form>
+      <Overview tasks={tasks}/>
     </div>
   );
 }
